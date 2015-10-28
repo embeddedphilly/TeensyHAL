@@ -58,7 +58,29 @@ GPIO_STATUS GPIO_InitInputPin(GPIO_INPUT_CONFIG config, GPIO_HANDLE* handle)
  ****************************************************************************/
 GPIO_STATUS GPIO_InitOutputPin(GPIO_OUTPUT_CONFIG config, GPIO_HANDLE* handle)
 {
-    return GPIO_STATUS_FAILURE;
+    switch(handle->port) {
+      case GPIO_PORTA:
+        DDRA |= handle->pin;
+        break;
+      case GPIO_PORTB:
+        DDRB |= handle->pin;
+        break;
+      case GPIO_PORTC:
+        DDRC |= handle->pin;
+        break;
+      case GPIO_PORTD:
+        DDRD |= handle->pin;
+        break;
+      case GPIO_PORTE:
+        DDRE |= handle->pin;
+        break;
+      case GPIO_PORTF:
+        DDRF |= handle->pin;
+        break;
+      default:
+        return GPIO_STATUS_FAILURE;
+    }
+    return GPIO_STATUS_SUCCESS;
 }
 
 /************************************************************************//**
